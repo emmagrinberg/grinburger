@@ -1,0 +1,52 @@
+.content {
+    width: 600px;
+    left: 50%;
+    position: relative;
+    padding: 100px 0 0 40px;
+}
+
+.basket {
+    height: 65vh;
+    padding: 0 16px 0 16px;
+    overflow: auto;
+    scrollbar-color: #8585AD #2F2F37;
+}
+
+.item {
+    height: fit-content;
+    margin-top: 16px;
+}
+
+.footer {
+    position: relative;
+    display: flex;
+    float: right;
+    padding: 40px 16px 0 40px;
+    margin-right: 40px;
+}
+
+.price {
+    composes: footer;
+    padding: 0;
+    height: fit-content;
+    vertical-align: middle;
+    margin-top: 10px;
+}
+
+.img {
+    margin-top: 10px;
+    padding-left: 4px;
+}
+
+.orderNumber {
+    text-shadow: 0 4px 32px rgb(51, 51, 255, 0.5);
+    padding-bottom: 32px;
+}
+
+.orderDone {
+    position: absolute;
+    width: 107px;
+    height: 102px;
+    left: 307px;
+    background: url('../../images/orderDone.svg');
+}

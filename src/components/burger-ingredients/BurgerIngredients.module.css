@@ -1,0 +1,104 @@
+/**
+    Основной блок
+ */
+.burgerIngredients {
+    width: 600px;
+    position: absolute;
+    right: 50%;
+    padding-top: 40px;
+}
+
+/**
+    Вкладки
+ */
+.categoriesTabs {
+    width: inherit;
+    display: flex;
+    padding-top: 20px;
+}
+
+/**
+    Блок со всеми ингредиентами
+ */
+.content {
+    height: 70vh;
+    overflow: auto;
+    scrollbar-color: #8585AD #2F2F37;
+}
+
+/**
+    Блок по каждому виду (типу) ингредиентов
+ */
+.ingredientsBlock {
+    display: inline-block;
+    padding-top: 40px;
+}
+
+/**
+    Блок (сетка) с ингредиентами
+ */
+.ingredientsContent {
+    display: grid;
+    grid-template-columns: repeat(2, 272px);
+    column-gap: 24px;
+    row-gap: 32px;
+}
+
+/**
+    Блок для каждого ингредиента
+ */
+.ingredient {
+    display: inline-grid;
+    place-items: center;
+    text-align: center;
+}
+
+.ingredient:hover {
+    cursor: pointer;
+}
+
+/**
+    Иконка ингредиента
+ */
+.ingredientIcon {
+    width: 240px;
+    height: 120px;
+}
+
+/**
+    Блок с ценой добавления ингредиента
+ */
+.price {
+    display: flex;
+    float: left;
+    padding: 4px 0 4px 0;
+}
+
+.counter {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.nutritionBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.nutritionElement {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.image {
+    width: 540px;
+    padding-bottom: 16px;
+}
+
+.image img {
+    width: inherit;
+}
