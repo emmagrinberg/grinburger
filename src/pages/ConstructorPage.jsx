@@ -1,7 +1,7 @@
 import BurgerIngredients from "../components/burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../components/burger-constructor/BurgerConstructor";
 import PropTypes from "prop-types";
-import {ingredient} from "../utils/props";
+import {ingredientType} from "../utils/props";
 
 export default function ConstructorPage(props) {
     const {availableIngredients, loading} = props;
@@ -19,5 +19,5 @@ export default function ConstructorPage(props) {
 }
 
 ConstructorPage.propTypes = {
-    availableIngredients: PropTypes.arrayOf(ingredient)
+    availableIngredients: PropTypes.arrayOf(ingredientType)
 }

@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import Modal from "../modal/Modal";
-import {ingredient} from "../../utils/props";
+import {ingredientType} from "../../utils/props";
 import {categories} from "../../utils/Constants";
 import OrderDetails from "./OrderDetails";
 import {useModal} from "../../hooks/useModal";
@@ -74,7 +74,7 @@ function Items(props) {
 }
 
 Items.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredient).isRequired
+    ingredients: PropTypes.arrayOf(ingredientType).isRequired
 }
 
 export default function BurgerConstructor(props) {
@@ -126,5 +126,5 @@ export default function BurgerConstructor(props) {
 }
 
 BurgerConstructor.propTypes = {
-    availableIngredients: PropTypes.arrayOf(ingredient)
+    availableIngredients: PropTypes.arrayOf(ingredientType)
 }

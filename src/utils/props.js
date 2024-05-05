@@ -3,7 +3,7 @@ import {categories, nutritionTypes} from "./Constants";
 
 export const categoryKeys = PropTypes.oneOf(Object.values(categories)).isRequired;
 
-export const ingredient = PropTypes.shape({
+export const ingredientType = PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: categoryKeys,

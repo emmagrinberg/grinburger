@@ -1,4 +1,4 @@
-import {ingredient, nutritionKeys} from "../../utils/props";
+import {ingredientType, nutritionKeys} from "../../utils/props";
 import PropTypes from "prop-types";
 import styles from './BurgerIngredients.module.css';
 import {nutritionLabels, nutritionTypes} from "../../utils/Constants";
@@ -45,14 +45,18 @@ export default function IngredientDetails(props) {
     return (
         <section>
             <Image src={image} alt={name}/>
-            <p className="text text_type_main-medium" style={{paddingBottom: '32px'}}>{name}</p>
+            <p className="text text_type_main-medium pb-8">{name}</p>
             <section className={styles.nutritionBlock}>
                 {
-                    Object.values(nutritionTypes).map(nutritionType => <Nutrition type={nutritionType} value={props[nutritionType]}/>)
+                    Object.values(nutritionTypes).map(nutritionType => <Nutrition key={nutritionType}
+                                                                                  type={nutritionType}
+                                                                                  value={ingredient[nutritionType]}/>)
                 }
             </section>
         </section>
     )
 }
 
-IngredientDetails.propTypes = ingredient;
+IngredientDetails.propTypes = {
+    ingredient: ingredientType
+};

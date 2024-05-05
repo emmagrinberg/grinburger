@@ -2,9 +2,7 @@ import styles from './BurgerIngredients.module.css';
 import {categories, categoryLabels} from "../../utils/Constants";
 import PropTypes from "prop-types";
 import IngredientBlock from "./IngredientBlock";
-import {ingredient} from "../../utils/props";
-import {useState} from "react";
-import Modal from "../modal/Modal";
+import {ingredientType} from "../../utils/props";
 
 /**
  * Блок всех ингредиентов
@@ -50,7 +48,7 @@ export default function IngredientsList(props) {
 }
 
 IngredientsList.propTypes = {
-    availableIngredients: PropTypes.arrayOf(ingredient),
+    availableIngredients: PropTypes.arrayOf(ingredientType),
     setCurrentTab: PropTypes.func.isRequired,
     openModal: PropTypes.func.isRequired
 }

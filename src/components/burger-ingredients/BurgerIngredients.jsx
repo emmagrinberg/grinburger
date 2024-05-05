@@ -1,7 +1,7 @@
 import styles from './BurgerIngredients.module.css';
 import IngredientsList from "./IngredientsList";
 import PropTypes from "prop-types";
-import {ingredient} from "../../utils/props";
+import {ingredientType} from "../../utils/props";
 import {categories, categoryLabels} from "../../utils/Constants";
 import {useState} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -68,5 +68,5 @@ export default function BurgerIngredients(props) {
 }
 
 BurgerIngredients.propTypes = {
-    availableIngredients: PropTypes.arrayOf(ingredient)
+    availableIngredients: PropTypes.arrayOf(ingredientType)
 }

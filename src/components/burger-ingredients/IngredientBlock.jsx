@@ -1,7 +1,7 @@
 import styles from './BurgerIngredients.module.css';
 import PropTypes from "prop-types";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {ingredient} from "../../utils/props";
+import {ingredientType} from "../../utils/props";
 
 /**
  * Блок с данными о стоимости ингредиента
@@ -41,6 +41,6 @@ export default function IngredientBlock(props) {
 }
 
 IngredientBlock.propTypes = {
-    ingredient: ingredient,
+    ingredient: ingredientType,
     openModal: PropTypes.func.isRequired
 };
