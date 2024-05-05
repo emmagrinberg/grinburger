@@ -25,7 +25,8 @@ Price.propTypes = {
  * Блок данных ингредиента
  */
 export default function IngredientBlock(props) {
-    const {_id, count, image, name, price, openModal} = props;
+    const {ingredient, openModal} = props;
+    const {_id, count, image, name, price} = ingredient;
 
     return (
         <section id={_id}
@@ -40,5 +41,6 @@ export default function IngredientBlock(props) {
 }
 
 IngredientBlock.propTypes = {
-
+    ingredient: ingredient,
+    openModal: PropTypes.func.isRequired
 };

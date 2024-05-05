@@ -34,20 +34,23 @@ ModalBody.propTypes = {
 export default function Modal(props) {
     const {onClose, title, children} = props;
 
-    const closeModal = (event) => {
-        if (event.key === "Escape") {
-            onClose();
-        }
-    }
-
     useEffect(() => {
+        const closeModal = (event) => {
+            if (event.key === "Escape") {
+                onClose();
+            }
+        }
+
         document.addEventListener("keydown", closeModal);
+        return () => {
+            document.removeEventListener("keydown", closeModal);
+        }
     }, [onClose])
 
     return createPortal(
-        (<section className={styles.modal}>
-            <>
-                <ModalOverlay onClick={onClose}/>
+        (<>
+            <ModalOverlay onClick={onClose}/>
+            <section className={styles.modal}>
                 <ModalHeader onClick={onClose}>
                         <span className="text text_type_main-large">
                             {title}
@@ -56,8 +59,8 @@ export default function Modal(props) {
                 <ModalBody>
                     {children}
                 </ModalBody>
-            </>
-        </section>), document.getElementById("modal-root")
+            </section>
+        </>), document.getElementById("modal-root")
     );
 }
 

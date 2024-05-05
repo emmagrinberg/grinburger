@@ -39,7 +39,7 @@ export default function IngredientsList(props) {
                                     .filter(ingredient => ingredient.type === categoryKey)
                                     .map(ingredient => <IngredientBlock key={`ingredient_${ingredient._id}`}
                                                                            openModal={openModal}
-                                                                           {...ingredient}/>)
+                                                                           ingredient={ingredient}/>)
                             }
                         </section>
                     </section>

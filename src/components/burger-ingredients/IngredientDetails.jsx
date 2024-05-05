@@ -39,7 +39,8 @@ Image.propTypes = {
  * Содержимое модального окна с информацией об ингредиенте
  */
 export default function IngredientDetails(props) {
-    const {image, name} = props;
+    const {ingredient} = props;
+    const {image, name} = ingredient;
 
     return (
         <section>

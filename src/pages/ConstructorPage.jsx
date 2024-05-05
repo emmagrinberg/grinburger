@@ -4,10 +4,16 @@ import PropTypes from "prop-types";
 import {ingredient} from "../utils/props";
 
 export default function ConstructorPage(props) {
+    const {availableIngredients, loading} = props;
+
     return (
         <section>
-            <BurgerIngredients availableIngredients={props.availableIngredients}/>
-            <BurgerConstructor availableIngredients={props.availableIngredients}/>
+            {!loading && (
+                <>
+                    <BurgerIngredients availableIngredients={availableIngredients}/>
+                    <BurgerConstructor availableIngredients={availableIngredients}/>
+                </>
+            )}
         </section>
     )
 }

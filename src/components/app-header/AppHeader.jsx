@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 export default function AppHeader() {
     return (
-        <nav className={styles.menu}>
+        <header className={styles.menu}>
             <div className={styles.content}>
                 <MenuItem link={"/"}
                           exact={"true"}
@@ -29,7 +29,7 @@ export default function AppHeader() {
                     </p>
                 </NavLink>
             </div>
-        </nav>
+        </header>
     )
 }
 
@@ -39,7 +39,6 @@ function MenuItem(props) {
     return (
         <NavLink to={link}
                  className={styles.menuItem}
-                 activeClassName={styles.menuItemActive}
                  exact={exact}>
             {logo}
             <p className={styles.menuTitle}>{children}</p>

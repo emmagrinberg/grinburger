@@ -1,11 +1,12 @@
 import styles from './BurgerConstructor.module.css';
 import {useEffect, useState} from "react";
-import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, ConstructorElement, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import Modal from "../modal/Modal";
 import {ingredient} from "../../utils/props";
 import {categories} from "../../utils/Constants";
 import OrderDetails from "./OrderDetails";
+import {useModal} from "../../hooks/useModal";
 
 /**
  * stub - заглушка реальных данных
@@ -49,16 +50,22 @@ function Items(props) {
         <section className={styles.basket}>
             {
                 ingredients && ingredients.map((item, index) => {
+                    const isTop = index === 0;
+                    const isBottom = index === ingredients.length - 1;
                     return (
-                        <ConstructorElement
-                            key={`item_${item._id}`}
-                            type={index === 0 ? "top" : (index === ingredients.length - 1 ? "bottom" : undefined)}
-                            isLocked={!!item.isLocked}
-                            text={item.name}
-                            price={item.price}
-                            thumbnail={item.image}
-                            extraClass={styles.item}
-                        />
+                        <section className={styles.element} key={`item_${item._id}_${index}`}>
+                            <section className={styles[`drag${!!item.isLocked ? "Hidden" : "Visible"}`]}>
+                                <DragIcon type="primary"/>
+                            </section>
+                            <ConstructorElement
+                                type={isTop ? "top" : (isBottom ? "bottom" : undefined)}
+                                isLocked={!!item.isLocked}
+                                text={`${item.name}${isTop ? " (верх)" : (isBottom ? " (низ)" : "")}`}
+                                price={item.price}
+                                thumbnail={item.image}
+                                extraClass={styles.item}
+                            />
+                        </section>
                     )
                 })
             }
@@ -67,14 +74,14 @@ function Items(props) {
 }
 
 Items.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredient)
+    ingredients: PropTypes.arrayOf(ingredient).isRequired
 }
 
 export default function BurgerConstructor(props) {
     const {availableIngredients} = props;
     const [ingredients, setIngredients] = useState([]);
     const [price, setPrice] = useState(0);
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const {isModalOpen, openModal, closeModal} = useModal();
 
     useEffect(() => {
         //todo: перенос ингр. посредством DnD
@@ -85,13 +92,10 @@ export default function BurgerConstructor(props) {
         setIngredients(items);
     }, [availableIngredients]);
 
-    const openModal = () => {
-        setIsModalVisible(true);
-    }
-
-    const closeModal = () => {
-        setIsModalVisible(false);
+    const handleClose = () => {
+        closeModal();
         setIngredients([]);
+        setPrice(0);
     }
 
     return (
@@ -111,8 +115,8 @@ export default function BurgerConstructor(props) {
                     Оформить заказ
                 </Button>
                 {
-                    isModalVisible &&
-                        <Modal onClose={closeModal}>
+                    isModalOpen &&
+                        <Modal onClose={handleClose}>
                             <OrderDetails/>
                         </Modal>
                 }

@@ -2,9 +2,10 @@
     position: absolute;
     top: calc(50% - 540px / 2);
     left: calc(50% - 720px / 2);
-    width: 720px;
+    width: fit-content;
     height: fit-content;
-    z-index: 100;
+    z-index: 10000;
+    opacity: 100%;
     background: #1C1C21;
     border-radius: 40px;
     box-sizing: border-box;
@@ -35,5 +36,4 @@
     background-color: #000000;
     opacity: 60%;
     border-radius: 40px;
-    z-index: -100;
 }

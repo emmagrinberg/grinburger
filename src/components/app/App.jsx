@@ -7,7 +7,7 @@ import {urls} from "../../utils/Constants";
 export default function App() {
     const [state, setState] = useState({
         availableIngredients: [],
-        loading: false,
+        loading: true,
         hasError: false
     });
 
@@ -20,8 +20,14 @@ export default function App() {
             });
 
             try {
-                const response = await fetch(urls.GET_INGREDIENTS);
-                const data = await response.json();
+                const data = await fetch(urls.GET_INGREDIENTS).then(
+                    response => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        return Promise.reject(`Ошибка при получении списка ингредиентов: ${response.status}`);
+                    }
+                );
                 setState({
                     availableIngredients: data.data,
                     loading: false,
@@ -44,7 +50,7 @@ export default function App() {
             <AppHeader/>
             <Routes>
                 <Route path={"/"}
-                       element={<ConstructorPage availableIngredients={state.availableIngredients}/>}/>
+                       element={<ConstructorPage availableIngredients={state.availableIngredients} loading={state.loading}/>}/>
             </Routes>
         </>
     )

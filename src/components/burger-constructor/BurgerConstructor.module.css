@@ -6,10 +6,17 @@
 }
 
 .basket {
-    height: 65vh;
+    height: 60vh;
     padding: 0 16px 0 16px;
     overflow: auto;
     scrollbar-color: #8585AD #2F2F37;
+}
+
+.element {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .item {
@@ -49,4 +56,16 @@
     height: 102px;
     left: 307px;
     background: url('../../images/orderDone.svg');
+}
+
+.orderPreparation {
+    padding-top: 167px;
+}
+
+.dragVisible {
+    visibility: visible;
+}
+
+.dragHidden {
+    visibility: hidden;
 }

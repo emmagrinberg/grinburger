@@ -7,6 +7,7 @@ import {useState} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/Modal";
 import IngredientDetails from "./IngredientDetails";
+import {useModal} from "../../hooks/useModal";
 
 /**
  * Раздел со списком всех ингредиентов
@@ -14,16 +15,16 @@ import IngredientDetails from "./IngredientDetails";
 export default function BurgerIngredients(props) {
     const {availableIngredients} = props;
     const [currentTab, setCurrentTab] = useState(categories.BUN);
-    const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedIngredient, setSelectedIngredient] = useState(null);
+    const {isModalOpen, openModal, closeModal} = useModal();
 
-    const openModal = ingredientId => {
-        setIsModalVisible(true);
+    const handleOpen = ingredientId => {
+        openModal();
         setSelectedIngredient(availableIngredients.find(ingredient => ingredient._id === ingredientId));
     }
 
-    const closeModal = () => {
-        setIsModalVisible(false);
+    const handleClose = () => {
+        closeModal();
         setSelectedIngredient(null);
     }
 
@@ -54,12 +55,12 @@ export default function BurgerIngredients(props) {
             </section>
             <IngredientsList availableIngredients={availableIngredients}
                              setCurrentTab={setCurrentTab}
-                             openModal={openModal}/>
+                             openModal={handleOpen}/>
             {
-                isModalVisible &&
-                    <Modal onClose={closeModal}
+                isModalOpen &&
+                    <Modal onClose={handleClose}
                            title="Детали ингредиента">
-                        <IngredientDetails {...selectedIngredient}/>
+                        <IngredientDetails ingredient={selectedIngredient}/>
                     </Modal>
             }
         </section>
