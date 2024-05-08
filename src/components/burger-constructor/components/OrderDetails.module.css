@@ -1,0 +1,16 @@
+.orderNumber {
+    text-shadow: 0 4px 32px rgb(51, 51, 255, 0.5);
+    padding-bottom: 32px;
+}
+
+.orderDone {
+    position: absolute;
+    width: 107px;
+    height: 102px;
+    left: calc(50% - 53px);
+    background: url('../../../images/orderDone.svg');
+}
+
+.orderPreparation {
+    padding-top: 167px;
+}

@@ -10,7 +10,7 @@ export const categoryLabels = {
     [categories.MAIN]: "Начинки"
 }
 
-export const nutritionTypes = {
+export const nutrition = {
     CALORIES: "calories",
     CARBOHYDRATES: "carbohydrates",
     FAT: "fat",
@@ -18,12 +18,8 @@ export const nutritionTypes = {
 };
 
 export const nutritionLabels = {
-    [nutritionTypes.CALORIES]: "Калории, ккал",
-    [nutritionTypes.CARBOHYDRATES]: "Белки, г",
-    [nutritionTypes.FAT]: "Жиры, г",
-    [nutritionTypes.PROTEINS]: "Углеводы, г",
-}
-
-export const urls = {
-    GET_INGREDIENTS: "https://norma.nomoreparties.space/api/ingredients"
+    [nutrition.CALORIES]: "Калории, ккал",
+    [nutrition.CARBOHYDRATES]: "Белки, г",
+    [nutrition.FAT]: "Жиры, г",
+    [nutrition.PROTEINS]: "Углеводы, г",
 }

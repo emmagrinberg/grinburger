@@ -1,35 +1,46 @@
 import styles from './BurgerIngredients.module.css';
-import IngredientsList from "./IngredientsList";
-import PropTypes from "prop-types";
-import {ingredientType} from "../../utils/props";
+import IngredientsList from "./components/IngredientsList";
 import {categories, categoryLabels} from "../../utils/Constants";
-import {useState} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../modal/Modal";
-import IngredientDetails from "./IngredientDetails";
+import Modal from "../modals/Modal";
+import IngredientDetails from "./components/IngredientDetails";
 import {useModal} from "../../hooks/useModal";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    DELETE_SELECTED_MODAL_INGREDIENT,
+    SET_SELECTED_MODAL_INGREDIENT,
+    SWITCH_CURRENT_INGREDIENT_TAB
+} from "../../services/actions/shop";
 
 /**
  * Раздел со списком всех ингредиентов
  */
-export default function BurgerIngredients(props) {
-    const {availableIngredients} = props;
-    const [currentTab, setCurrentTab] = useState(categories.BUN);
-    const [selectedIngredient, setSelectedIngredient] = useState(null);
+export default function BurgerIngredients() {
+    const dispatch = useDispatch();
     const {isModalOpen, openModal, closeModal} = useModal();
 
-    const handleOpen = ingredientId => {
+    const {availableIngredients, currentTab} = useSelector(state => state.shop);
+
+    const handleOpenModal = ingredientId => {
         openModal();
-        setSelectedIngredient(availableIngredients.find(ingredient => ingredient._id === ingredientId));
+        dispatch({
+            type: SET_SELECTED_MODAL_INGREDIENT,
+            selectedIngredient: availableIngredients.find(ingredient => ingredient._id === ingredientId)
+        });
     }
 
-    const handleClose = () => {
+    const handleCloseModal = () => {
         closeModal();
-        setSelectedIngredient(null);
+        dispatch({
+            type: DELETE_SELECTED_MODAL_INGREDIENT
+        });
     }
 
     const switchTabOnClick = (tab) => {
-        setCurrentTab(tab);
+        dispatch({
+            type: SWITCH_CURRENT_INGREDIENT_TAB,
+            currentTab: tab
+        });
 
         document.getElementById(tab).scrollIntoView({
             behavior: "smooth",
@@ -53,20 +64,14 @@ export default function BurgerIngredients(props) {
             <section className={styles.categoriesTabs}>
                 {Object.values(categories).map(categoryKey => getTab(categoryKey))}
             </section>
-            <IngredientsList availableIngredients={availableIngredients}
-                             setCurrentTab={setCurrentTab}
-                             openModal={handleOpen}/>
+            <IngredientsList openModal={handleOpenModal}/>
             {
                 isModalOpen &&
-                    <Modal onClose={handleClose}
+                    <Modal onClose={handleCloseModal}
                            title="Детали ингредиента">
-                        <IngredientDetails ingredient={selectedIngredient}/>
+                        <IngredientDetails />
                     </Modal>
             }
         </section>
     )
-}
-
-BurgerIngredients.propTypes = {
-    availableIngredients: PropTypes.arrayOf(ingredientType)
 }

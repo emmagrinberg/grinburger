@@ -1,109 +1,59 @@
 import styles from './BurgerConstructor.module.css';
-import {useEffect, useState} from "react";
-import {Button, ConstructorElement, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import Modal from "../modal/Modal";
-import {ingredientType} from "../../utils/props";
-import {categories} from "../../utils/Constants";
-import OrderDetails from "./OrderDetails";
+import {
+    Button,
+    CurrencyIcon
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import OrderDetails from "./components/OrderDetails";
 import {useModal} from "../../hooks/useModal";
+import Cart from "./components/Cart";
+import {useDispatch, useSelector} from "react-redux";
+import {useMemo} from "react";
+import {
+    CLEAR_ORDER,
+    createOrderAction,
+    ORDER_VALIDATION_FAILED
+} from "../../services/actions/order";
 
 /**
- * stub - заглушка реальных данных
+ * Корзина-конструктор бургера
  */
-const getData = (availableIngredients) => {
-    const ingredients = [];
+export default function BurgerConstructor() {
+    const dispatch = useDispatch();
+    const {isModalOpen, closeModal, openModal} = useModal();
 
-    const buns = availableIngredients.filter(ingredient => ingredient.type === categories.BUN);
-    const sauces = availableIngredients.filter(ingredient => ingredient.type === categories.SAUCE);
-    const main = availableIngredients.filter(ingredient => ingredient.type === categories.MAIN);
+    const {ingredients, bun} = useSelector(state => state.cart);
+    const totalPrice = useMemo(() => {
+        const price = (bun?.price * 2 || 0);
+        return ingredients
+            .map(item => item.price)
+            .reduce((_price, currentPrice) => _price + (currentPrice || 0), price);
+    }, [ingredients, bun]);
 
-    if (sauces) {
-        ingredients.push({
-            ...sauces[0],
-            isLocked: false
+    const handleCreateOrder = () => {
+        if (!ingredients.length || !bun) {
+            dispatch({
+                type: ORDER_VALIDATION_FAILED
+            });
+            return;
+        }
+
+        dispatch(createOrderAction([bun, ...ingredients, bun].map(item => item._id)));
+        openModal();
+    }
+
+    const handleCloseModal = () => {
+        dispatch({
+            type: CLEAR_ORDER
         });
-    }
-
-    if (main) {
-        ingredients.push({
-            ...main[0],
-            isLocked: false
-        });
-    }
-
-    if (buns) {
-        const bun = {
-            ...buns[0],
-            isLocked: true
-        };
-        return [bun].concat(ingredients).concat(bun);
-    }
-
-    return ingredients;
-}
-
-function Items(props) {
-    const {ingredients} = props;
-
-    return (
-        <section className={styles.basket}>
-            {
-                ingredients && ingredients.map((item, index) => {
-                    const isTop = index === 0;
-                    const isBottom = index === ingredients.length - 1;
-                    return (
-                        <section className={styles.element} key={`item_${item._id}_${index}`}>
-                            <section className={styles[`drag${!!item.isLocked ? "Hidden" : "Visible"}`]}>
-                                <DragIcon type="primary"/>
-                            </section>
-                            <ConstructorElement
-                                type={isTop ? "top" : (isBottom ? "bottom" : undefined)}
-                                isLocked={!!item.isLocked}
-                                text={`${item.name}${isTop ? " (верх)" : (isBottom ? " (низ)" : "")}`}
-                                price={item.price}
-                                thumbnail={item.image}
-                                extraClass={styles.item}
-                            />
-                        </section>
-                    )
-                })
-            }
-        </section>
-    )
-}
-
-Items.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientType).isRequired
-}
-
-export default function BurgerConstructor(props) {
-    const {availableIngredients} = props;
-    const [ingredients, setIngredients] = useState([]);
-    const [price, setPrice] = useState(0);
-    const {isModalOpen, openModal, closeModal} = useModal();
-
-    useEffect(() => {
-        //todo: перенос ингр. посредством DnD
-        const items = getData(availableIngredients);
-        setPrice(items.reduce((accumulator, curValue) => {
-            return accumulator + (curValue.price || 0)
-        }, 0));
-        setIngredients(items);
-    }, [availableIngredients]);
-
-    const handleClose = () => {
         closeModal();
-        setIngredients([]);
-        setPrice(0);
     }
 
     return (
         <section className={styles.content}>
-            {!!ingredients && <Items ingredients={ingredients} />}
+            <Cart />
             <section className={styles.footer}>
                 <section className={styles.price}>
-                    <p className="text text_type_main-large">{price}</p>
+                    <p className="text text_type_main-large pr-2">{totalPrice}</p>
                     <p className={styles.img}>
                         <CurrencyIcon type={"primary"}/>
                     </p>
@@ -111,20 +61,11 @@ export default function BurgerConstructor(props) {
                 <Button htmlType="button"
                         type="primary"
                         size="medium"
-                        onClick={openModal}>
+                        onClick={handleCreateOrder}>
                     Оформить заказ
                 </Button>
-                {
-                    isModalOpen &&
-                        <Modal onClose={handleClose}>
-                            <OrderDetails/>
-                        </Modal>
-                }
+                {isModalOpen && <OrderDetails closeModal={handleCloseModal}/>}
             </section>
         </section>
     )
-}
-
-BurgerConstructor.propTypes = {
-    availableIngredients: PropTypes.arrayOf(ingredientType)
 }

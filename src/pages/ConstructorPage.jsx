@@ -1,23 +1,24 @@
 import BurgerIngredients from "../components/burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../components/burger-constructor/BurgerConstructor";
-import PropTypes from "prop-types";
-import {ingredientType} from "../utils/props";
+import {useSelector} from "react-redux";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
+import Preloader from "../components/preloader/Preloader";
 
-export default function ConstructorPage(props) {
-    const {availableIngredients, loading} = props;
+export default function ConstructorPage() {
+    const {availableIngredientsRequest} = useSelector(state => state.shop);
 
     return (
         <section>
-            {!loading && (
+            {availableIngredientsRequest && <Preloader/>}
+            {!availableIngredientsRequest && (
                 <>
-                    <BurgerIngredients availableIngredients={availableIngredients}/>
-                    <BurgerConstructor availableIngredients={availableIngredients}/>
+                    <DndProvider backend={HTML5Backend}>
+                        <BurgerIngredients />
+                        <BurgerConstructor />
+                    </DndProvider>
                 </>
             )}
         </section>
     )
-}
-
-ConstructorPage.propTypes = {
-    availableIngredients: PropTypes.arrayOf(ingredientType)
 }

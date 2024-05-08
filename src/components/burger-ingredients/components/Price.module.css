@@ -1,0 +1,5 @@
+.price {
+    display: flex;
+    float: left;
+    padding: 4px 0 4px 0;
+}

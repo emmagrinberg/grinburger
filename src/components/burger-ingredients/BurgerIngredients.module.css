@@ -44,61 +44,9 @@
     row-gap: 32px;
 }
 
-/**
-    Блок для каждого ингредиента
- */
-.ingredient {
-    display: inline-grid;
-    place-items: center;
-    text-align: center;
-}
-
-.ingredient:hover {
-    cursor: pointer;
-}
-
-/**
-    Иконка ингредиента
- */
-.ingredientIcon {
-    width: 240px;
-    height: 120px;
-}
-
-/**
-    Блок с ценой добавления ингредиента
- */
-.price {
-    display: flex;
-    float: left;
-    padding: 4px 0 4px 0;
-}
-
-.counter {
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
 .nutritionBlock {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: flex-start;
-}
-
-.nutritionElement {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.image {
-    width: 540px;
-    padding-bottom: 16px;
-}
-
-.image img {
-    width: inherit;
 }

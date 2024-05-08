@@ -1,14 +1,17 @@
-import styles from './BurgerIngredients.module.css';
-import {categories, categoryLabels} from "../../utils/Constants";
+import styles from '../BurgerIngredients.module.css';
+import {categories, categoryLabels} from "../../../utils/Constants";
 import PropTypes from "prop-types";
 import IngredientBlock from "./IngredientBlock";
-import {ingredientType} from "../../utils/props";
+import {useDispatch, useSelector} from "react-redux";
+import {SWITCH_CURRENT_INGREDIENT_TAB} from "../../../services/actions/shop";
 
 /**
  * Блок всех ингредиентов
  */
-export default function IngredientsList(props) {
-    const {availableIngredients, setCurrentTab, openModal} = props;
+export default function IngredientsList({openModal}) {
+    const dispatch = useDispatch();
+
+    const {availableIngredients} = useSelector(state => state.shop);
 
     const switchTabOnScroll = () => {
         const scrollY = document.getElementById("burger-ingredients").scrollTop + 176;
@@ -18,7 +21,10 @@ export default function IngredientsList(props) {
             .findLast(header => scrollY > header.offsetTop);
 
         if (activeTab) {
-            setCurrentTab(activeTab.id);
+            dispatch({
+                type: SWITCH_CURRENT_INGREDIENT_TAB,
+                currentTab: activeTab.id
+            })
         }
     }
 
@@ -48,7 +54,5 @@ export default function IngredientsList(props) {
 }
 
 IngredientsList.propTypes = {
-    availableIngredients: PropTypes.arrayOf(ingredientType),
-    setCurrentTab: PropTypes.func.isRequired,
     openModal: PropTypes.func.isRequired
 }
