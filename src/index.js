@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom"
 import App from "./components/app/App";
-import {applyMiddleware, compose} from "redux";
+import {applyMiddleware, compose, createStore} from "redux";
 import {thunk} from "redux-thunk";
-import {configureStore} from "@reduxjs/toolkit";
 import {rootReducer} from "./services/reducers";
 import {Provider} from "react-redux";
 
@@ -18,10 +17,7 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
-const store = configureStore({
-    reducer: rootReducer,
-    enhancers: (getDefaultEnhancers) => getDefaultEnhancers().concat(enhancer),
-});
+const store = createStore(rootReducer, enhancer);
 
 root.render(
   <React.StrictMode>
