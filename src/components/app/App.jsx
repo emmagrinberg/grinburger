@@ -1,56 +1,27 @@
 import {Route, Routes} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import AppHeader from "../app-header/AppHeader";
 import ConstructorPage from "../../pages/ConstructorPage";
-import {urls} from "../../utils/Constants";
+import {useDispatch, useSelector} from "react-redux";
+import {getAvailableIngredientsAction} from "../../services/actions/shop";
 
 export default function App() {
-    const [state, setState] = useState({
-        availableIngredients: [],
-        loading: true,
-        hasError: false
-    });
+    const dispatch = useDispatch();
+
+    const {availableIngredients} = useSelector(state => state.shop);
 
     useEffect(() => {
-        const getIngredients = async () => {
-            setState({
-                ...state,
-                loading: true,
-                hasError: false
-            });
-
-            try {
-                const data = await fetch(urls.GET_INGREDIENTS).then(
-                    response => {
-                        if (response.ok) {
-                            return response.json();
-                        }
-                        return Promise.reject(`Ошибка при получении списка ингредиентов: ${response.status}`);
-                    }
-                );
-                setState({
-                    availableIngredients: data.data,
-                    loading: false,
-                    hasError: false
-                });
-            } catch (error) {
-                setState({
-                    ...state,
-                    loading: false,
-                    hasError: true
-                })
-            }
+        if (!availableIngredients || !availableIngredients.length) {
+            dispatch(getAvailableIngredientsAction());
         }
-
-        getIngredients();
-    }, []);
+    }, [dispatch, availableIngredients]);
 
     return (
         <>
             <AppHeader/>
             <Routes>
                 <Route path={"/"}
-                       element={<ConstructorPage availableIngredients={state.availableIngredients} loading={state.loading}/>}/>
+                       element={<ConstructorPage/>}/>
             </Routes>
         </>
     )

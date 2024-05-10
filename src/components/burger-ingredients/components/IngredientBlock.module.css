@@ -1,0 +1,20 @@
+.counter {
+    position: relative;
+}
+
+.ingredient {
+    display: inline-grid;
+    place-items: center;
+    text-align: center;
+}
+
+.ingredient:hover {
+    cursor: pointer;
+    color: cornflowerblue;
+    transition: 0.3s color;
+}
+
+.ingredientIcon {
+    width: 240px;
+    height: 120px;
+}

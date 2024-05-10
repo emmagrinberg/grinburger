@@ -1,0 +1,22 @@
+.emptyBlock {
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    margin: 10px;
+    border: 3px dashed #1c1c21;
+    border-radius: 40px;
+}
+
+.outline {
+    transition: 0.5s border-color;
+}
+
+.outlineRed {
+    composes: outline;
+    border-color: rgba(255, 0, 0, 0.63);
+}
+
+.outlineGreen {
+    composes: outline;
+    border-color: rgba(173, 255, 47, 0.45);
+}

@@ -1,0 +1,15 @@
+.element {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.dragging {
+    opacity: 0.3;
+}
+
+.item {
+    height: fit-content;
+    margin-top: 16px;
+}

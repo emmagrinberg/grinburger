@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import {categories, nutritionTypes} from "./Constants";
+import {categories, nutrition} from "./Constants";
 
 export const categoryKeys = PropTypes.oneOf(Object.values(categories)).isRequired;
 
@@ -18,4 +18,4 @@ export const ingredientType = PropTypes.shape({
     __v: PropTypes.number
 });
 
-export const nutritionKeys = PropTypes.oneOf(Object.values(nutritionTypes)).isRequired;
+export const nutritionKeys = PropTypes.oneOf(Object.values(nutrition)).isRequired;

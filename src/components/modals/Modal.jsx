@@ -1,36 +1,14 @@
-import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import {useEffect} from "react";
 import {createPortal} from "react-dom";
-import ModalOverlay from "./ModalOverlay";
+import ModalOverlay from "./components/ModalOverlay";
 import styles from './Modal.module.css';
+import ModalHeader from "./components/ModalHeader";
+import ModalBody from "./components/ModalBody";
 
-function ModalHeader(props) {
-    return (
-        <section className={styles.modalHeader} onClick={props.onClick}>
-            <p className="text text_type_main-large">{props.children}</p>
-            <CloseIcon type="primary" />
-        </section>
-    )
-}
-
-ModalHeader.propTypes = {
-    onClick: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired
-}
-
-function ModalBody(props) {
-    return (
-        <section className={styles.modalBody}>
-            {props.children}
-        </section>
-    )
-}
-
-ModalBody.propTypes = {
-    children: PropTypes.node.isRequired
-}
-
+/**
+ * Модальное окно
+ */
 export default function Modal(props) {
     const {onClose, title, children} = props;
 
@@ -51,11 +29,7 @@ export default function Modal(props) {
         (<>
             <ModalOverlay onClick={onClose}/>
             <section className={styles.modal}>
-                <ModalHeader onClick={onClose}>
-                        <span className="text text_type_main-large">
-                            {title}
-                        </span>
-                </ModalHeader>
+                <ModalHeader onClick={onClose}/>
                 <ModalBody>
                     {children}
                 </ModalBody>
@@ -66,7 +40,6 @@ export default function Modal(props) {
 
 Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
-    isModalVisible: PropTypes.bool,
     title: PropTypes.string,
     children: PropTypes.element
 }
