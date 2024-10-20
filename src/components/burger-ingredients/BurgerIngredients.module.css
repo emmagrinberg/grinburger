@@ -43,10 +43,3 @@
     column-gap: 24px;
     row-gap: 32px;
 }
-
-.nutritionBlock {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: flex-start;
-}

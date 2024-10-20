@@ -1,6 +1,5 @@
 import styles from '../BurgerIngredients.module.css';
 import {categories, categoryLabels} from "../../../utils/Constants";
-import PropTypes from "prop-types";
 import IngredientBlock from "./IngredientBlock";
 import {useDispatch, useSelector} from "react-redux";
 import {SWITCH_CURRENT_INGREDIENT_TAB} from "../../../services/actions/shop";
@@ -8,7 +7,7 @@ import {SWITCH_CURRENT_INGREDIENT_TAB} from "../../../services/actions/shop";
 /**
  * Блок всех ингредиентов
  */
-export default function IngredientsList({openModal}) {
+export default function IngredientsList() {
     const dispatch = useDispatch();
 
     const {availableIngredients} = useSelector(state => state.shop);
@@ -42,8 +41,7 @@ export default function IngredientsList({openModal}) {
                                 availableIngredients && availableIngredients
                                     .filter(ingredient => ingredient.type === categoryKey)
                                     .map(ingredient => <IngredientBlock key={`ingredient_${ingredient._id}`}
-                                                                           openModal={openModal}
-                                                                           ingredient={ingredient}/>)
+                                                                        ingredient={ingredient}/>)
                             }
                         </section>
                     </section>
@@ -51,8 +49,4 @@ export default function IngredientsList({openModal}) {
             })}
         </section>
     )
-}
-
-IngredientsList.propTypes = {
-    openModal: PropTypes.func.isRequired
 }

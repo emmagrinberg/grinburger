@@ -29,7 +29,7 @@ export default function Modal(props) {
         (<>
             <ModalOverlay onClick={onClose}/>
             <section className={styles.modal}>
-                <ModalHeader onClick={onClose}/>
+                <ModalHeader title={title} onClick={onClose}/>
                 <ModalBody>
                     {children}
                 </ModalBody>

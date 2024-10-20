@@ -1,0 +1,4 @@
+.registerBody {
+    composes: loginBody from "../login/Login.module.css";
+    margin-top: 10vh;
+}

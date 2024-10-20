@@ -13,12 +13,16 @@ import {
     createOrderAction,
     ORDER_VALIDATION_FAILED
 } from "../../services/actions/order";
+import {isAuth} from "../../utils/utils";
+import {useNavigate} from "react-router-dom";
+import {paths} from "../../utils/Constants";
 
 /**
  * Корзина-конструктор бургера
  */
 export default function BurgerConstructor() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {isModalOpen, closeModal, openModal} = useModal();
 
     const {ingredients, bun} = useSelector(state => state.cart);
@@ -30,6 +34,10 @@ export default function BurgerConstructor() {
     }, [ingredients, bun]);
 
     const handleCreateOrder = () => {
+        if (!isAuth()) {
+            navigate(paths.LOGIN);
+        }
+
         if (!ingredients.length || !bun) {
             dispatch({
                 type: ORDER_VALIDATION_FAILED

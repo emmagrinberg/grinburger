@@ -1,3 +1,15 @@
 body {
   background-color: #131316;
 }
+
+.textLink {
+  color: rgba(76, 76, 255, 0.9);
+  text-decoration: none;
+}
+
+.textLink:hover {
+  color: #4C4CFF;
+  transition: 0.1s color;
+}
+
+

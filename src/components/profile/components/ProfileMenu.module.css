@@ -1,0 +1,25 @@
+.profileMenu {
+    display: flex;
+    flex-direction: column;
+
+    width: 320px;
+    position: absolute;
+    right: 60%;
+    padding-top: 80px;
+}
+
+.profileMenuItem {
+    padding: 20px 10px 20px 10px;
+    align-items: center;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+.profileMenuItemActive {
+    color: white;
+}
+
+.profileHint {
+    padding-left: 10px;
+    color: rgba(133, 133, 173, 0.4);
+}

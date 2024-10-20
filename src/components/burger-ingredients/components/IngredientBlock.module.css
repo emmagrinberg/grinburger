@@ -6,6 +6,7 @@
     display: inline-grid;
     place-items: center;
     text-align: center;
+    color: white;
 }
 
 .ingredient:hover {

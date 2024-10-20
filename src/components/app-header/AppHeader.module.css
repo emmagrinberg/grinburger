@@ -22,7 +22,12 @@
     text-decoration: none;
 }
 
+.menuItem:active {
+    color: white;
+}
+
 .menuItemActive {
+    composes: menuItem;
     color: white;
 }
 
@@ -39,7 +44,7 @@
 
 .logo {
     width: 290px;
-    left: calc(50% - 120px);
+    left: calc(50% - 140px);
     right: 0;
     display: flex;
     padding: 16px 0 16px 0;
