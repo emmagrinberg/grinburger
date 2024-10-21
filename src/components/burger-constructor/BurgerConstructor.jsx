@@ -35,7 +35,7 @@ export default function BurgerConstructor() {
 
     const handleCreateOrder = () => {
         if (!isAuth()) {
-            navigate(paths.LOGIN);
+            return navigate(paths.LOGIN);
         }
 
         if (!ingredients.length || !bun) {
