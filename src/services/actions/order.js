@@ -1,5 +1,6 @@
-import {createOrder} from "../../utils/api";
+import {post} from "../../utils/api";
 import {CLEAR_INGREDIENTS, DELETE_BUN} from "./cart";
+import {urls} from "../../utils/Constants";
 
 export const ORDER_VALIDATION_FAILED = "ORDER_VALIDATION_FAILED";
 
@@ -14,7 +15,7 @@ export function createOrderAction(ingredients) {
         dispatch({
             type: CREATE_ORDER_REQUEST
         });
-        createOrder(ingredients)
+        post(urls.CREATE_ORDER, {ingredients})
             .then(response => {
                 if (response && response.success) {
                     dispatch({

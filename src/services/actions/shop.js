@@ -6,9 +6,6 @@ export const GET_AVAILABLE_INGREDIENTS_ERROR = "GET_AVAILABLE_INGREDIENTS_ERROR"
 
 export const SWITCH_CURRENT_INGREDIENT_TAB = "SWITCH_CURRENT_INGREDIENT_TAB";
 
-export const SET_SELECTED_MODAL_INGREDIENT = "SET_SELECTED_MODAL_INGREDIENT";
-export const DELETE_SELECTED_MODAL_INGREDIENT = "DELETE_SELECTED_MODAL_INGREDIENT";
-
 export function getAvailableIngredientsAction() {
     return function(dispatch) {
         dispatch({

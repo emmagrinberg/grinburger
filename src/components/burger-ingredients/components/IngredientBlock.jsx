@@ -6,12 +6,15 @@ import {useDrag} from "react-dnd";
 import {useSelector} from "react-redux";
 import {useCallback} from "react";
 import Price from "./Price";
+import {Link, useLocation} from "react-router-dom";
+import {paths} from "../../../utils/Constants";
 
 /**
  * Блок данных ингредиента
  */
-export default function IngredientBlock({ingredient, openModal}) {
+export default function IngredientBlock({ingredient}) {
     const {_id, image, name, price} = ingredient;
+    const location = useLocation();
 
     const {ingredients, bun} = useSelector(state => state.cart);
 
@@ -29,23 +32,23 @@ export default function IngredientBlock({ingredient, openModal}) {
     });
 
     return (
-        <section id={`ingredientDataBlock_${_id}`}>
+        <Link id={`ingredientDataBlock_${_id}`}
+              to={paths.INGREDIENT.replace(":id", _id)}
+              state={{background: location}}
+              ref={dragRef}>
             <section className={styles.counter}>
                 <Counter count={ingredientCount()}/>
             </section>
             <section id={_id}
-                     className={styles.ingredient}
-                     onClick={() => openModal(_id)}
-                     ref={dragRef}>
+                     className={styles.ingredient}>
                 <img src={image} alt={name} className={styles.ingredientIcon}/>
                 <Price price={price}/>
                 <p className={"text text_type_main-default pt-1"}>{name}</p>
             </section>
-        </section>
+        </Link>
     )
 }
 
 IngredientBlock.propTypes = {
-    ingredient: ingredientType,
-    openModal: PropTypes.func.isRequired
+    ingredient: ingredientType
 };
