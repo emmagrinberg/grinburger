@@ -8,7 +8,7 @@ import {
 import {IClearIngredients, IDeleteBun} from "./cart";
 
 export interface IOrderState {
-    order: IOrder | {},
+    order: IOrder | null,
 
     orderValidationFailed: boolean,
 
@@ -16,13 +16,17 @@ export interface IOrderState {
     createOrderError: boolean
 }
 
-export interface IOrder {
+export interface IOrderDetails {
     ingredients: string[],
     number: number,
-    name: string,
     status: "done" | "created" | "pending",
     createdAt: string,
     _id: string
+}
+
+export interface IOrder {
+    name: string,
+    order: IOrderDetails
 }
 
 interface IOrderValidationFailed {

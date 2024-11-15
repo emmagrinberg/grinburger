@@ -12,7 +12,7 @@ export default function Modal(props: PropsWithChildren<{onClose: Function, title
     const {onClose, title, children} = props;
 
     useEffect(() => {
-        const closeModal = (event: {key: string}) => {
+        const closeModal = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
                 onClose();
             }

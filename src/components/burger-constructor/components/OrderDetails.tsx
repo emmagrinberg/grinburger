@@ -11,8 +11,7 @@ import {IState, useSelector} from "../../../services/types";
 export default function OrderDetails(props: {closeModal: Function}): ReactElement {
     const order = useSelector((state: IState) => state.order);
     const {createOrderRequest, createOrderError} = order;
-    console.log(order)
-    const orderNumber = 'd'
+    const orderNumber = order?.order?.order?.number;
 
     const {closeModal} = props;
 

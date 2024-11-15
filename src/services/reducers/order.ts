@@ -8,7 +8,7 @@ import {
 import {IOrderState, TOrderActions} from "../types/order";
 
 const initialState: IOrderState = {
-    order: {},
+    order: null,
 
     orderValidationFailed: false,
 
